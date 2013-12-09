@@ -7,7 +7,7 @@ Game::Game() :
 	t(0),
 	targetFps(120.0f)
 {
-	this->rw = new sf::RenderWindow(sf::VideoMode(1600, 900), "SnakeGame", sf::Style::Close | sf::Style::Resize, sf::ContextSettings(0, 0, 8));
+	this->rw = new sf::RenderWindow(sf::VideoMode(1024, 768), "SnakeGame", sf::Style::Close | sf::Style::Resize, sf::ContextSettings(0, 0, 8));
 	rw->setMouseCursorVisible(false);
 
 	sf::Image icon;
