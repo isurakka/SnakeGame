@@ -15,6 +15,7 @@
 #include "ColorGrid.hpp"
 #include "GraphicsQuality.hpp"
 #include "Settings.hpp"
+#include "Utilities.hpp"
 
 class Game : public GameObject, public IResponsible
 {
@@ -33,6 +34,8 @@ private:
 	float t;
 	int frame;
 	sf::Clock clock;
+
+	void handleResize();
 
 	void gotoMainMenu();
 	TextGrid* mainGrid;

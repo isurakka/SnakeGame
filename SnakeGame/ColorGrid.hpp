@@ -4,6 +4,7 @@
 #include "Thor\Math.hpp"
 
 #include "ElementGrid.hpp"
+#include "Utilities.hpp"
 
 typedef boost::multi_array<sf::RectangleShape*, 2> RectMap;
 typedef RectMap::index index;

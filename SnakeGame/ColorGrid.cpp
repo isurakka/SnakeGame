@@ -50,8 +50,7 @@ void ColorGrid::SetPosition(sf::Vector2f pos)
 
 void ColorGrid::Draw(sf::RenderTarget& target, sf::RenderStates& states)
 {
-	sf::View oldView = target.getView();
-	target.setView(target.getDefaultView());
+	sf::View oldView = Utilities::SetDefaultView(target);
 
 	for (int y = 0; y < size.y; y++)
 	{

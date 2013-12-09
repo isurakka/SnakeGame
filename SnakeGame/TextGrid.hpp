@@ -6,6 +6,7 @@
 #include "ElementGrid.hpp"
 #include "ShadowTextRenderer.hpp"
 #include "Settings.hpp"
+#include "Utilities.hpp"
 
 typedef boost::multi_array<sf::Text*, 2> TextMap;
 typedef TextMap::index index;

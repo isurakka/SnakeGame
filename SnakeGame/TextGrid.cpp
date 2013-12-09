@@ -52,8 +52,7 @@ void TextGrid::SetText(sf::Vector2i pos, std::string text)
 
 void TextGrid::Draw(sf::RenderTarget& target, sf::RenderStates& states)
 {
-	sf::View oldView = target.getView();
-	target.setView(target.getDefaultView());
+	sf::View oldView = Utilities::SetDefaultView(target);
 
 	//states.blendMode = sf::BlendMode::BlendNone;
 

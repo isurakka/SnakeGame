@@ -103,6 +103,7 @@
     <ClInclude Include="Settings.hpp" />
     <ClInclude Include="ShadowTextRenderer.hpp" />
     <ClInclude Include="TextGrid.hpp" />
+    <ClInclude Include="Utilities.hpp" />
     <ClInclude Include="Worm.hpp" />
   </ItemGroup>
   <ItemGroup>

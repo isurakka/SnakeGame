@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Utilities.hpp"
 
 struct vectorHasher
 {
@@ -28,6 +29,8 @@ public:
 
 	void ShadowTextRenderer::DrawDropShadowText(sf::RenderTarget& target, sf::Text& text, bool highQuality = true)
 	{
+		sf::View oldView = Utilities::SetDefaultView(target);
+
 		sf::RenderStates states = sf::RenderStates();
 		states.blendMode = sf::BlendMode::BlendAlpha;
 
@@ -129,6 +132,8 @@ public:
 		}
 
 		target.draw(text, states);
+
+		target.setView(oldView);
 	}
 
 private:

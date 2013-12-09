@@ -7,7 +7,7 @@ Game::Game() :
 	t(0),
 	targetFps(120.0f)
 {
-	this->rw = new sf::RenderWindow(sf::VideoMode(1600, 900), "SnakeGame", sf::Style::Close, sf::ContextSettings(0, 0, 8));
+	this->rw = new sf::RenderWindow(sf::VideoMode(1600, 900), "SnakeGame", sf::Style::Close | sf::Style::Resize, sf::ContextSettings(0, 0, 8));
 	rw->setMouseCursorVisible(false);
 
 	sf::Image icon;
@@ -44,7 +44,7 @@ void Game::gotoMainMenu()
 
 	if (!titleText)
 	{
-		titleText = new sf::Text("SnakeGame", *font, 160);
+		titleText = new sf::Text("SnakeGame", *font, rw->getSize().x / 10.0f);
 		titleText->setColor(sf::Color(255, 200, 0, 255));
 		//titleText->setString("SnakeGame");
 		//titleText->setPosition(sf::Vector2f(0.0f, 200.0f));
@@ -53,13 +53,13 @@ void Game::gotoMainMenu()
 
 	if (!mainGrid)
 	{
-		mainGrid = new TextGrid(sf::Vector2i(1, 5), sf::Vector2f(300.0f, 32.0f), gaussianShader);
+		mainGrid = new TextGrid(sf::Vector2i(1, 4), sf::Vector2f(300.0f, 32.0f), gaussianShader);
 		mainGrid->GameState = GameStates::MainMenu;
-		mainGrid->SetPosition(sf::Vector2f(100.0f, 400.0f));
+		mainGrid->SetPosition(sf::Vector2f(100.0f, 350.0f));
 
 		mainGrid->SetText(sf::Vector2i(0, 0), "quick game");
 		mainGrid->SetText(sf::Vector2i(0, 1), "new game");
-		mainGrid->SetText(sf::Vector2i(0, 4), "quit");
+		mainGrid->SetText(sf::Vector2i(0, 3), "quit");
 
 		mainGrid->SetAction(sf::Vector2i(0, 0), [this]() 
 		{ 
@@ -71,7 +71,7 @@ void Game::gotoMainMenu()
 			this->gotoGameSetup();
 		});
 
-		mainGrid->SetAction(sf::Vector2i(0, 4), [this]() 
+		mainGrid->SetAction(sf::Vector2i(0, 3), [this]() 
 		{ 
 			rw->close();
 		});
@@ -94,7 +94,7 @@ void Game::gotoGameSetup()
 	{
 		backGrid = new TextGrid(sf::Vector2i(1, 1), sf::Vector2f(200.0f, 32.0f), gaussianShader);
 		backGrid->GameState = GameStates::GameSetup;
-		backGrid->SetPosition(sf::Vector2f(100.0f, 400.0f));
+		backGrid->SetPosition(sf::Vector2f(100.0f, 350.0f));
 
 		backGrid->SetText(sf::Vector2i(0, 0), "go back");
 
@@ -107,7 +107,7 @@ void Game::gotoGameSetup()
 
 		levelGrid = new TextGrid(sf::Vector2i(1, 3), sf::Vector2f(200.0f, 32.0f), gaussianShader);
 		levelGrid->GameState = GameStates::GameSetup;
-		levelGrid->SetPosition(sf::Vector2f(100.0f, 500.0f));
+		levelGrid->SetPosition(sf::Vector2f(100.0f, 450.0f));
 
 		levelGrid->SetText(sf::Vector2i(0, 0), "Level 1");
 		levelGrid->SetText(sf::Vector2i(0, 1), "Level 2");
@@ -133,9 +133,9 @@ void Game::gotoGameSetup()
 
 	if (!colorGrid)
 	{
-		colorGrid = new ColorGrid(sf::Vector2i(20, 8), sf::Vector2f(32.0f, 32.0f));
+		colorGrid = new ColorGrid(sf::Vector2i(rw->getSize().x / 65, rw->getSize().y / 150), sf::Vector2f(32.0f, 32.0f));
 		colorGrid->GameState = GameStates::GameSetup;
-		colorGrid->SetPosition(sf::Vector2f(308.0f, 500.0f));
+		colorGrid->SetPosition(sf::Vector2f(308.0f, 450.0f));
 		AddObject(colorGrid);
 	}
 
@@ -246,8 +246,8 @@ void Game::gotoDeath()
 
 	if (!retryText)
 	{
-		retryText = new sf::Text("Press ENTER to restart \t\t Press ESCAPE for main menu", *font, 48);
-		retryText->setPosition(sf::Vector2f(rw->getSize().x / 2.0f - retryText->getGlobalBounds().width / 2.0f, 600.0f));
+		retryText = new sf::Text("Press ENTER to restart \t\t Press ESCAPE for main menu", *font, rw->getSize().x / 33);
+	retryText->setPosition(sf::Vector2f(rw->getSize().x / 2.0f - retryText->getGlobalBounds().width / 2.0f, rw->getSize().y * (2.0f / 3.0f)));
 	}
 }
 
@@ -394,6 +394,43 @@ void Game::handleKeyUp(sf::Keyboard::Key key)
 	
 }
 
+void Game::handleResize()
+{
+	//auto vec = rw->getSize();
+	//vec = sf::Vector2u(std::max(800u, vec.x), std::max(600u, vec.y));
+	//rw->setSize(vec);
+
+	sf::View view = rw->getView();
+	view.setSize(rw->getSize().x, rw->getSize().y);
+	rw->setView(view);
+
+	if (titleText)
+	{
+		titleText->setCharacterSize(rw->getSize().x / 10.0f);
+		titleText->setPosition(sf::Vector2f(rw->getSize().x / 2.0f - titleText->getGlobalBounds().width / 2.0f, 50.0f));
+	}
+
+	if (colorGrid)
+		RemoveObject(colorGrid);
+
+	colorGrid = new ColorGrid(sf::Vector2i(rw->getSize().x / 65, rw->getSize().y / 150), sf::Vector2f(32.0f, 32.0f));
+	colorGrid->GameState = GameStates::GameSetup;
+	colorGrid->SetPosition(sf::Vector2f(308.0f, 450.0f));
+	AddObject(colorGrid);
+
+	if (pauseBg)
+		delete pauseBg;
+
+	pauseBg = new sf::RectangleShape(sf::Vector2f(rw->getSize().x, rw->getSize().y));
+	pauseBg->setFillColor(sf::Color(0, 0, 0, 160));
+
+	if (retryText)
+		delete retryText;
+
+	retryText = new sf::Text("Press ENTER to restart \t\t Press ESCAPE for main menu", *font, rw->getSize().x / 33);
+	retryText->setPosition(sf::Vector2f(rw->getSize().x / 2.0f - retryText->getGlobalBounds().width / 2.0f, rw->getSize().y * (2.0f / 3.0f)));
+}
+
 void Game::setMapColors(sf::Color base)
 {
 	float h = ColorGrid::RGBToHSV(base);
@@ -431,6 +468,12 @@ void Game::Run()
 					handleKeyUp(event.key.code);
 					break;
 				}
+				case sf::Event::Resized:
+				{
+					handleResize();
+
+					break;
+				} 
 			}
 		}
 
@@ -675,8 +718,7 @@ void Game::Draw(sf::RenderTarget& target, sf::RenderStates& states)
 		}
 	}
 
-	sf::View oldView = rw->getView();
-	rw->setView(rw->getDefaultView());
+	sf::View oldView = Utilities::SetDefaultView(target);
 
 	if ((GameState & GameStates::Game) == GameStates::Game)
 	{
