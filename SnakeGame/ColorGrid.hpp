@@ -19,7 +19,7 @@ public:
 	sf::Color GetSelectionColor();
 	static sf::Color HSVToRGB(float hue, float saturation, float value);
 	static float RGBToHSV(sf::Color color);
-	static sf::Color GeneratePrettyColor();
+	static sf::Color GeneratePrettyColor(); // Generate pretty color using golden ratio
 	static std::vector<sf::Color> GeneratePrettyColors(int count);
 protected:
 	virtual bool validSelection(sf::Vector2i sel);

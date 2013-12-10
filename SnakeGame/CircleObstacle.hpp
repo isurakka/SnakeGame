@@ -12,9 +12,8 @@ public:
 	CircleObstacle(sf::Vector2f pos, float radius, bool inverse = false);
 	~CircleObstacle();
 	virtual CollisionInfo Collides(const Circle& circle);
-	//virtual CollisionInfo Collides(sf::Vector2f point, float radius);
 	virtual void Draw(sf::RenderTarget& target, sf::RenderStates& states);
-	bool Inverse;
+	bool Inverse; // Is the inside passable or the outside
 	sf::Color Color;
 	sf::Color BackgroundColor;
 

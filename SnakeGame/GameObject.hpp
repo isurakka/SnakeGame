@@ -27,7 +27,6 @@ public:
 	virtual ~GameObject() { };
 	bool Enabled;
 	GameStates GameState;
-	virtual void Update(float dt) { };
 	virtual void Tick(float step, int frame) { };
 	virtual void Draw(sf::RenderTarget& target, sf::RenderStates& states) { };
 };

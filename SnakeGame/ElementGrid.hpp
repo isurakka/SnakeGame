@@ -21,7 +21,7 @@ public:
 	virtual void Draw(sf::RenderTarget& target, sf::RenderStates& states) = 0;
 	sf::Vector2i Selection;
 	bool DrawSelection;
-	bool MoveSelection(sf::Vector2i move)
+	bool MoveSelection(sf::Vector2i move) // Move to parameter position or to its direction until we find a valid selection
 	{
 		sf::Vector2i sign = sf::Vector2i(
 			(move.x > 0) - (move.x < 0), 
@@ -71,47 +71,24 @@ public:
 		} while (true);
 
 		return ret;
-
-		/*
-		for (int y = Selection.y + move.y; y < size.y && y > -1; y += sign.y)
-		{
-			for (int x = Selection.x + move.x; x < size.x && x > -1; x += sign.x)
-			{
-				sf::Vector2i curSel = sf::Vector2i(x, y);
-
-				if (!validSelection(curSel))
-				{
-					if (sign.x == 0)
-						break;
-
-					continue;
-				}
-
-				Selection = curSel;
-				return true;
-			}
-		}
-
-		return false;
-		*/
 	};
 	void SetAction(sf::Vector2i index, std::function<void()> act)
 	{
 		actions[index] = act;
 	};
-	void RunSelection()
+	void RunSelection() // Run the action set to current selection
 	{
 		if (&actions && actions.size() > 0 && actions[Selection] != nullptr)
 			actions[Selection]();
 	};
 protected:
-	virtual bool validSelection(sf::Vector2i sel) = 0;
+	virtual bool validSelection(sf::Vector2i sel) = 0; // Checks if parameter selection is valid
 	sf::Vector2i size;
 	sf::Vector2f position;
 	sf::Vector2f tileSize;
 	float margin;
 private:
-	struct vectorHasher
+	struct vectorHasher // Hashes vectors so the unordered_map can differentiate them
 	{
 		std::size_t operator()(const sf::Vector2i key) const
 		{

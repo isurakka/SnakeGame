@@ -21,8 +21,8 @@ public:
 	CircleObstacle* AddCircleObstacle(sf::Vector2f pos, float radius, bool inverse = true);
 	CircleObstacle* AddCircleObstacle(CircleObstacle* obs);
 	virtual CollisionInfo Collides(const Circle& circle);
-	sf::FloatRect Area;
-	float Inverse;
+	sf::FloatRect Area; // Area where we try to add Food
+	float Inverse; // Is background passable or solid?
 	std::vector<Food*> Foods;
 	void RefreshFoods();
 	void AddRandomFood();

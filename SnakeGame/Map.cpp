@@ -214,6 +214,7 @@ void Map::AddRandomFood()
 	responsible->AddObject(food);
 }
 
+// TODO: FIX! This is a big mess, bunch of edge cases not accounted for
 CollisionInfo Map::Collides(const Circle& circle)
 {
 	for (int i = 0; i < obstacles.size(); i++)

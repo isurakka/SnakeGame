@@ -28,12 +28,12 @@ public:
 	sf::Vector2f GetHeadPos() const;
 	sf::Vector2f GetLastHeadPos();
 	virtual void OnEat(int score);
-	std::vector<sf::Vector2f> GetCollisionPoints();
+	std::vector<sf::Vector2f> GetCollisionPoints(); // Returns all worm points except points near head
 	float Multiplier;
 	int Combo;
 	float ComboTime;
 	float ComboLeft;
-	bool OnCollision(CollisionInfo info, GameObject* hit);
+	bool OnCollision(CollisionInfo info, GameObject* hit); // Event, returns whether we should die or not
 	virtual CollisionInfo Collides(const Circle& circle);
 
 	virtual sf::Vector2f GetPosition() const { return GetHeadPos(); };
@@ -49,12 +49,13 @@ protected:
 	float bounceTime;
 	float bounceLeft;
 	void addPoint(sf::Vector2f point);
-	void trimPoints(std::vector<sf::Vector2f>& p, float length);
+	void trimPoints(std::vector<sf::Vector2f>& p, float length); // Reduces the length of the worm from tail
 private:
 	sf::Vector2f lastHead;
 	std::vector<sf::Vector2f> points;
 	void drawPoints(sf::RenderTarget& target, sf::Vector2f& p1, sf::Vector2f& p2, bool drawP1End = false);
 
+	// These probably shouldn't be here.
 	sf::SoundBuffer* foodBuffer;
 	sf::Sound foodSound;
 

@@ -27,6 +27,7 @@ public:
 		
 	}
 
+	// Render text with gaussian blur drop shadow
 	void ShadowTextRenderer::DrawDropShadowText(sf::RenderTarget& target, sf::Text& text, bool highQuality = true)
 	{
 		sf::View oldView = Utilities::SetDefaultView(target);

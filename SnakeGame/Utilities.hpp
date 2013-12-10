@@ -4,7 +4,7 @@
 
 namespace Utilities
 {
-	static sf::View SetDefaultView(sf::RenderTarget& target)
+	static sf::View SetDefaultView(sf::RenderTarget& target) // Needed for window resizing. Also why doesn't SFML do this by default?
 	{
 		sf::View oldView = target.getView();
 		sf::View newView = target.getDefaultView();

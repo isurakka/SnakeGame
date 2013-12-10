@@ -498,8 +498,6 @@ void Game::Run()
 			draw = true;
 		}
 
-		Update(dt);
-
 		if (draw)
 			Draw(*rw, sf::RenderStates(sf::RenderStates::Default));
 
@@ -507,20 +505,6 @@ void Game::Run()
 			sf::sleep(sf::seconds(1.0f / targetFps - dt * 2.0f));
 	}
 }
-
-void Game::Update(float dt)
-{
-	/*
-	for (auto& vec : objects)
-	{
-		for (auto& obj : vec.second)
-		{
-			if ((obj->GameState & GameState) == GameState)
-				obj->Update(dt);
-		}
-	}
-	*/
-};
 
 void Game::Tick(float step, int frame)
 {

@@ -13,7 +13,6 @@
 #include "TextGrid.hpp"
 #include "ShadowTextRenderer.hpp"
 #include "ColorGrid.hpp"
-#include "GraphicsQuality.hpp"
 #include "Settings.hpp"
 #include "Utilities.hpp"
 
@@ -23,7 +22,6 @@ public:
 	Game();
 	~Game();
 	void Run();
-	virtual void Update(float dt);
 	virtual void Tick(float step, int frame);
 	virtual void Draw(sf::RenderTarget& target, sf::RenderStates& states);
 private:
@@ -35,7 +33,7 @@ private:
 	int frame;
 	sf::Clock clock;
 
-	void handleResize();
+	void handleResize(); // Resize stuff according to the window if needed
 
 	void gotoMainMenu();
 	TextGrid* mainGrid;

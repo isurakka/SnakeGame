@@ -14,7 +14,7 @@ public:
 	virtual void SetPosition(sf::Vector2f pos) = 0;
 	virtual float GetRadius() const = 0;
 	virtual void SetRadius(float rad) = 0;
-	sf::FloatRect GetRect()
+	sf::FloatRect GetRect() // Get AABB of the circle.
 	{
 		return sf::FloatRect(
 			GetPosition().x - GetRadius(), 

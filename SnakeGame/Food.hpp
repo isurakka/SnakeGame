@@ -16,7 +16,7 @@ public:
 	virtual void Draw(sf::RenderTarget& target, sf::RenderStates& states);
 	int Points;
 	sf::Color Color;
-	sf::Color LayerColor;
+	sf::Color LayerColor; // Outer layer colors
 
 	virtual CollisionInfo Collides(const Circle& circle);
 
